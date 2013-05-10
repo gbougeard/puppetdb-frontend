@@ -1,0 +1,37 @@
+@(message: String, response:String)
+
+@main(message) {
+
+@*<div ng-view></div>*@
+    <div ng-controller="MyController" ng-init="data=@response;">
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th>Receive time</th>
+                    <th>Version</th>
+                    <th>Format</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr ng-repeat="report in data" class="{{node.report_timestamp }}">
+                    <td><a href="/events/{{report.hash}}">{{report.hash}}</a></td>
+                    <td>{{report['start-time'] | moment}}</td>
+                    <td>{{report['end-time'] | moment}}</td>
+                    <td>{{report['receive-time'] | moment}}</td>
+                    <td>{{report['puppet-version']}} </td>
+                    <td>{{report['report-format']}} </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        @*<pre>{{data | json}}</pre>*@
+
+    </div>
+    
+}

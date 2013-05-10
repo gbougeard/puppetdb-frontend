@@ -1,0 +1,72 @@
+@(title: String, scripts: Html = Html(""))(content: Html)
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7 ng-app:my_app" lang="en" id="ng-app"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8 ng-app:my_app" lang="en" id="ng-app"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en" ng-app="my_app"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" ng-app="my_app"> <!--<![endif]-->
+
+<html ng-app="my_app">
+    <head>
+        <title>@title</title>
+        <link rel="shortcut icon" type="image/png" href='@routes.Assets.at("images/favicon.png")'>
+
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap/2.3.1/js/bootstrap.min.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("moment.min.js"))'></script>
+        @*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery-ui/1.10.2/js/jquery-ui-1.10.2.custom.min.js"))'></script>*@
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("tiny_mce/tiny_mce.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("tiny_mce/jquery.tinymce.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("angular.min.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("angular-resource.min.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("angular-ui.min.js"))'></script>
+        <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("angular-strap.min.js"))'></script>
+
+        <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap/2.3.1/css/bootstrap.min.css"))'>
+        <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("angular-ui.min.css"))'>
+        <link rel="stylesheet" media="screen" href='@routes.Assets.at("stylesheets/main.css")'>
+
+        <script type="text/javascript" src="@routes.Application.javascriptRoutes"></script>
+
+        @** Application AngularJS module **@
+        <script type="text/javascript" src='@routes.Assets.at("js/app/app.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("js/app/services/services.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("js/app/controllers/controllers.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("js/app/filters/filters.js")'></script>
+        <script type="text/javascript" src='@routes.Assets.at("js/app/directives/directives.js")'></script>
+
+        @scripts
+    </head>
+    <body>
+    <div class="page-header">
+        <div class="container">
+            <h1>
+                <a href='@routes.Application.index()'>
+                   PuppetDB frontend
+                </a>
+            </h1>
+        </div>
+    </div>
+
+    <section id="main">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <!--Sidebar content-->
+                    @navigation()
+                </div>
+
+                <div class="span10">
+                    <!--Body content-->
+                    <fieldset>
+                        <legend>@title</legend>
+                        @content
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="push"></div>
+    <hr>
+    </body>
+</html>

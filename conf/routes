@@ -1,0 +1,22 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+GET     /nodes                      controllers.Application.nodes
+GET     /reports/:node              controllers.Application.reports(node:String)
+GET     /events/:hash               controllers.Application.events(hash:String)
+GET     /metrics                  controllers.Application.metrics
+
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
+
+# Fragments routing
+GET     /fragments/*file            controllers.FragmentAssets.at(file)
+
+# Javascript routing
+GET     /assets/javascripts/routes controllers.Application.javascriptRoutes
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
