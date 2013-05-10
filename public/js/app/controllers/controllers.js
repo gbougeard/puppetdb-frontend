@@ -7,6 +7,15 @@ angular.module('my_app.controllers', [])
 
         $scope.data = [];
 
+        $scope.current = {};
+
+        $scope.displayDetails = function(event){
+            $scope.current = event;
+            $('#myModal').modal({
+                keyboard: false
+            })
+        };
+
         $scope.loadReport = function () {
             $http({
                 method: 'GET',

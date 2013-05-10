@@ -4,6 +4,7 @@
 
 @*<div ng-view></div>*@
     <div ng-controller="MyController" ng-init="data=@response;">
+        <h4>{{data.length}} nodes</h4>
         <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>

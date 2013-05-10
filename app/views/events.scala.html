@@ -2,13 +2,18 @@
 
 @main(message) {
     @*<div ng-view></div>*@
-    <script>
-        $(function ()
-        { $(".comment").popover();
-        });
-    </script>
+    @*<script>*@
+        @*$(function ()*@
+        @*{ $(".comment").popover();*@
+        @*});*@
+    @*</script>*@
 
     <div ng-controller="MyController" ng-init="data=@response;">
+
+        <script type="text/ng-template" id="/tpl.html">
+            test
+            <b>old</b> <em>{{event['old-value']}}</em> new {{event['new-value']}}
+        </script>
 
         <h4><a href="/reports/{{data.0.certname}}">{{data.0.certname}}</a> {{(data| filter:filterNotSchedule).length}} events</h4>
 
@@ -17,10 +22,11 @@
                 <tr>
                     <th>Date</th>
                     <th>Status</th>
-                    <th>Title</th>
+                    <th>Rsc Title</th>
                     <th>Message</th>
                     <th>Rsc Type</th>
                     <th>Property</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,14 +38,33 @@
                     <td>{{event.message}}</td>
                     <td style="width:5%;">{{event['resource-type']}}</td>
                     <td>{{event.property}}</td>
-                    <td> <button type="button" class="btn btn-info" ng-click="displayParams(event)"> <i class="icon-comment"></i> </button>
-                    </td>
+                    <td> <button type="button" class="btn btn-info" ng-click="displayDetails(event)"> <i class="icon-comment"></i> </button>
                 </tr>
 
             </tbody>
         </table>
 
-        <pre>{{data | json}}</pre>
+        @*<pre>{{data | json}}</pre>*@
+
+            <!-- Modal -->
+        <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Details</h3>
+            </div>
+            <div class="modal-body">
+                <dl>
+                <dt>Old value</dt>
+                <dd><pre>{{current['old-value']}}</pre></dd>
+                <dt>New value</dt>
+                <dd><pre>{{current['new-value']}}</pre></dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
     </div>
 
 }
