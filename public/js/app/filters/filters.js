@@ -51,7 +51,8 @@ angular.module('my_app.filters', [])
                 }
             } else return "error";
         }
-    }]).filter('moreThanOneDayIcon', [function (status) {
+    }]).
+    filter('moreThanOneDayIcon', [function (status) {
         return function (date) {
 //            console.log("moreThanOneDayIcon", date);
             if (date && angular.isDefined(date)) {
@@ -63,5 +64,13 @@ angular.module('my_app.filters', [])
                     return "";
                 }
             } else  return "icon-question-sign";
+        }
+    }]).
+    filter('errorRow', [function (failures) {
+        return function (item) {
+//            console.log("moreThanOneDayRow", date);
+            if (item && angular.isDefined(item) && item > 0) {
+                    return "error";
+            } else return "";
         }
     }]);

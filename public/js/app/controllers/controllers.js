@@ -3,43 +3,67 @@
 'use strict';
 
 angular.module('my_app.controllers', [])
-    .controller('MyController', function ($scope, $http) {
+    .controller('MyController', function ($scope, $filter) {
 
         $scope.data = [];
+        $scope.results = [];
 
         $scope.current = {};
+        $scope.loaded= false;
 
-        $scope.displayDetails = function(event){
+        $scope.displayDetails = function (event) {
             $scope.current = event;
             $('#myModal').modal({
                 keyboard: false
             })
         };
 
-        $scope.loadReport = function () {
-            $http({
-                method: 'GET',
-                url: 'http://10.2.51.100:8080/experimental/reports',
-                params: {query: '["=", "certname", "puppetdb.dev.it.int"]'},
-                headers: {
-                    "Accept": "application/json"
-                }
-            }).
-                success(function (data, status, headers, config) {
+        $scope.loadResults = function (hash) {
+//            console.log("loadResult", hash);
+            jsRoutes.controllers.MyController.asyncRes(hash).ajax({
+
+                success: function (data, status, headers, config) {
 // this callback will be called asynchronously
 // when the response is available
-                    console.log("Success!", data, status);
-                    $scope.data = data;
-                }).
-                error(function (data, status, headers, config) {
+//                    console.log("Success!", data, status);
+//                    console.log("success", data.success.length);
+//                    console.log("failure", data.failure.length);
+//                    console.log("skipped", data.skipped.length);
+                    $scope.results[hash] =
+                    {
+                        success: data.success.length,
+                        failure: data.failure.length,
+                        skipped: data.skipped.length,
+                        total: data.success.length + data.failure.length + data.skipped.length
+                    };
+//                    console.log("RESULTS", $scope.results);
+                    $scope.$digest();
+                },
+                error: function (data, status, headers, config) {
 // called asynchronously if an error occurs
 // or server returns response with an error status.
                     console.error("Failed!", data, status, headers, config);
-                });
+                }
+            })
         };
 
-        $scope.filterNotSchedule = function(event) {
+        $scope.load = function () {
+            if (!$scope.loaded){
+//            console.log("load!", $scope.data, $scope.loaded);
+            $scope.loaded = true;
+            angular.forEach($scope.data, function (item) {
+                item.results = $scope.loadResults(item.hash);
+//                $scope.$digest();
+            });
+            }
+
+
+        };
+
+        $scope.filterNotSchedule = function (event) {
             return event['resource-type'] !== "Schedule";
         }
+
+//        $scope.load();
 
     });

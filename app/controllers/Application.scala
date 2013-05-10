@@ -9,6 +9,8 @@ import scala.language.postfixOps
 import play.api.Play.current
 
 import play.Logger
+import play.api.libs.json.Json
+import scala.concurrent.Future
 
 
 object Application extends Controller {
@@ -23,7 +25,7 @@ object Application extends Controller {
           .withQueryString(("query", "[\"=\", \"certname\", \"" + node + "\"]"))
           .get().map {
           response =>
-            Logger.debug(response.body)
+//            Logger.debug(response.body)
             Ok(views.html.reports("Reports for " + node, response.body))
         }
       }
@@ -36,7 +38,7 @@ object Application extends Controller {
           .withHeaders(("Accept", "application/json"))
           .get().map {
           response =>
-            Logger.debug(response.body)
+//            Logger.debug(response.body)
             Ok(views.html.nodes("Nodes ", response.body))
         }
       }
@@ -62,7 +64,7 @@ object Application extends Controller {
           .withHeaders(("Accept", "application/json"))
           .get().map {
           response =>
-            Logger.debug(response.body)
+//            Logger.debug(response.body)
             Ok(views.html.nodes("Nodes ", response.body))
         }
       }
@@ -76,8 +78,8 @@ object Application extends Controller {
           .withQueryString(("query", "[\"=\", \"certname\", \"" + node + "\"]"))
           .get().map {
           response =>
-            Logger.debug(response.body)
-            Ok(views.html.facts(node+" facts", response.body))
+//            Logger.debug(response.body)
+            Ok(views.html.facts(node + " facts", response.body))
         }
       }
   }
@@ -90,8 +92,8 @@ object Application extends Controller {
           .withQueryString(("query", "[\"=\", \"certname\", \"" + node + "\"]"))
           .get().map {
           response =>
-            Logger.debug(response.body)
-            Ok(views.html.resources(node+" resources", response.body))
+//            Logger.debug(response.body)
+            Ok(views.html.resources(node + " resources", response.body))
         }
       }
   }
@@ -104,20 +106,21 @@ object Application extends Controller {
           .withQueryString(("query", "[\"=\", \"report\",\"" + hash + "\"]"))
           .get().map {
           response =>
-            Logger.debug(response.body)
+//            Logger.debug(response.body)
             Ok(views.html.events("Events for report " + hash, response.body))
         }
       }
   }
+
   def factNames = Action {
     implicit request =>
       Async {
         WS.url(url("v2/fact-names"))
           .withHeaders(("Accept", "application/json"))
-//          .withQueryString(("query", "[\"=\", \"report\",\"" + hash + "\"]"))
+          //          .withQueryString(("query", "[\"=\", \"report\",\"" + hash + "\"]"))
           .get().map {
           response =>
-            Logger.debug(response.body)
+//            Logger.debug(response.body)
             Ok(views.html.default("Fact names", response.body))
         }
       }
@@ -126,9 +129,10 @@ object Application extends Controller {
   // -- Javascript routing
   def javascriptRoutes = Action {
     implicit request =>
+      import routes.javascript._
       Ok(
         Routes.javascriptRouter("jsRoutes")(
-          //          Comments.view,
+          MyController.asyncRes
         )
       ).as("text/javascript")
   }

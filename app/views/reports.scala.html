@@ -14,21 +14,30 @@
                     <th>Receive time</th>
                     <th>Version</th>
                     <th>Format</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
 
-                <tr ng-repeat="report in data" class="{{node.report_timestamp }}">
+                <tr ng-repeat="report in data" class="{{node.result.failures | errorRow }}">
                     <td><a href="/events/{{report.hash}}">{{report.hash}}</a></td>
                     <td>{{report['start-time'] | moment}}</td>
                     <td>{{report['end-time'] | moment}}</td>
                     <td>{{report['receive-time'] | moment}}</td>
                     <td>{{report['puppet-version']}} </td>
                     <td>{{report['report-format']}} </td>
+                    <td style="width:10%;">
+                        @*<span class="pull-left">{{results[report.hash].success / results[report.hash].total}}%</span>*@
+                        <div class="progress" >
+                        <div class="bar bar-success" style='width: {{results[report.hash].success / results[report.hash].total *100}}%;'></div>
+                        <div class="bar bar-warning" style='width: {{results[report.hash].skipped / results[report.hash].total *100}}%;'></div>
+                        <div class="bar bar-danger" style='width:{{results[report.hash].failure / results[report.hash].total *100}}%;'></div>
+                    </div>
                 </tr>
 
             </tbody>
         </table>
+        {{load()}}
 
         @*<pre>{{data | json}}</pre>*@
 
