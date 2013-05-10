@@ -50,7 +50,7 @@ object Application extends Controller {
           .get().map {
           response =>
             Logger.debug(response.body)
-            Ok(views.html.metrics("Metrics mbeans", response.body))
+            Ok(views.html.default("Metrics mbeans", response.body))
         }
       }
   }
@@ -106,6 +106,19 @@ object Application extends Controller {
           response =>
             Logger.debug(response.body)
             Ok(views.html.events("Events for report " + hash, response.body))
+        }
+      }
+  }
+  def factNames = Action {
+    implicit request =>
+      Async {
+        WS.url(url("v2/fact-names"))
+          .withHeaders(("Accept", "application/json"))
+//          .withQueryString(("query", "[\"=\", \"report\",\"" + hash + "\"]"))
+          .get().map {
+          response =>
+            Logger.debug(response.body)
+            Ok(views.html.default("Fact names", response.body))
         }
       }
   }

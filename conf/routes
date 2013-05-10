@@ -10,6 +10,7 @@ GET     /events/:hash               controllers.Application.events(hash:String)
 GET     /metrics                  controllers.Application.metrics
 GET     /facts/:node                  controllers.Application.facts(node:String)
 GET     /resources/:node                  controllers.Application.resources(node:String)
+GET     /fact-names                  controllers.Application.factNames
 
 GET     /webjars/*file              controllers.WebJarAssets.at(file)
 

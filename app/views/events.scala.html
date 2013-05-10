@@ -10,10 +10,6 @@
 
     <div ng-controller="MyController" ng-init="data=@response;">
 
-        <script type="text/ng-template" id="/tpl.html">
-            test
-            <b>old</b> <em>{{event['old-value']}}</em> new {{event['new-value']}}
-        </script>
 
         <h4><a href="/reports/{{data.0.certname}}">{{data.0.certname}}</a> {{(data| filter:filterNotSchedule).length}} events</h4>
 

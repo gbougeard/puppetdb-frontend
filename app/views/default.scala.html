@@ -1,0 +1,20 @@
+@(message: String, response: String)
+
+@main(message) {
+    @*<div ng-view></div>*@
+    @*<script>*@
+        @*$(function ()*@
+        @*{ $(".comment").popover();*@
+        @*});*@
+    @*</script>*@
+
+    <div ng-controller="MyController" ng-init="data=@response;">
+
+
+        <h4><a href="/reports/{{data.0.certname}}">{{data.0.certname}}</a> {{data.length}} items</h4>
+
+
+        <pre>{{data | json}}</pre>
+    </div>
+
+}
