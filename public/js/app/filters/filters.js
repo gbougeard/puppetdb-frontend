@@ -39,7 +39,7 @@ angular.module('my_app.filters', [])
     }]).
     filter('moreThanOneDayRow', [function (status) {
         return function (date) {
-            console.log("moreThanOneDayRow", date);
+//            console.log("moreThanOneDayRow", date);
             if (date && angular.isDefined(date)) {
 
                 var today = moment();
@@ -53,7 +53,7 @@ angular.module('my_app.filters', [])
         }
     }]).filter('moreThanOneDayIcon', [function (status) {
         return function (date) {
-            console.log("moreThanOneDayIcon", date);
+//            console.log("moreThanOneDayIcon", date);
             if (date && angular.isDefined(date)) {
 
                 var today = moment();

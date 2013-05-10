@@ -68,6 +68,34 @@ object Application extends Controller {
       }
   }
 
+  def facts(node: String) = Action {
+    implicit request =>
+      Async {
+        WS.url(url("v2/facts"))
+          .withHeaders(("Accept", "application/json"))
+          .withQueryString(("query", "[\"=\", \"certname\", \"" + node + "\"]"))
+          .get().map {
+          response =>
+            Logger.debug(response.body)
+            Ok(views.html.facts(node+" facts", response.body))
+        }
+      }
+  }
+
+  def resources(node: String) = Action {
+    implicit request =>
+      Async {
+        WS.url(url("v2/resources"))
+          .withHeaders(("Accept", "application/json"))
+          .withQueryString(("query", "[\"=\", \"certname\", \"" + node + "\"]"))
+          .get().map {
+          response =>
+            Logger.debug(response.body)
+            Ok(views.html.resources(node+" resources", response.body))
+        }
+      }
+  }
+
   def events(hash: String) = Action {
     implicit request =>
       Async {

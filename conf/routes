@@ -8,6 +8,8 @@ GET     /nodes                      controllers.Application.nodes
 GET     /reports/:node              controllers.Application.reports(node:String)
 GET     /events/:hash               controllers.Application.events(hash:String)
 GET     /metrics                  controllers.Application.metrics
+GET     /facts/:node                  controllers.Application.facts(node:String)
+GET     /resources/:node                  controllers.Application.resources(node:String)
 
 GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
