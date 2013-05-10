@@ -28,6 +28,7 @@
                     <td>{{report['report-format']}} </td>
                     <td style="width:10%;">
                         @*<span class="pull-left">{{results[report.hash].success / results[report.hash].total}}%</span>*@
+                            {{results[report.hash].total}} events
                         <div class="progress" >
                         <div class="bar bar-success" style='width: {{results[report.hash].success / results[report.hash].total *100}}%;'></div>
                         <div class="bar bar-warning" style='width: {{results[report.hash].skipped / results[report.hash].total *100}}%;'></div>
