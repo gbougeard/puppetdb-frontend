@@ -6,6 +6,7 @@
 GET     /                           controllers.Application.index
 GET     /nodes                      controllers.Application.nodes
 GET     /reports/:node              controllers.Application.reports(node:String)
+GET     /reports/:node/json              controllers.MyController.asyncReports(node:String)
 GET     /events/:hash               controllers.Application.events(hash:String)
 GET     /events/results/:hash               controllers.MyController.asyncRes(hash:String)
 GET     /metrics                  controllers.Application.metrics

@@ -44,5 +44,17 @@ object MyController extends Controller {
     } )
   }
 
-
+  def asyncReports(node: String) = Action {
+    implicit request =>
+      Async {
+        WS.url(Application.url("experimental/reports"))
+          .withHeaders(("Accept", "application/json"))
+          .withQueryString(("query", "[\"=\", \"certname\", \"" + node + "\"]"))
+          .get().map {
+          response =>
+//                      Logger.debug(response.body)
+            Ok(Json.parse(response.body))
+        }
+      }
+  }
 }

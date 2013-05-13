@@ -13,7 +13,8 @@
                     <th>Facts timestamp</th>
                     <th>Report timestamp</th>
                     <th>Deactived</th>
-                    <th></th>
+                    <th>Last report</th>
+                    <th>Facts</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,11 @@
                     <td>{{node.facts_timestamp | moment}}</td>
                     <td>{{node.report_timestamp | moment}} <i class="{{node.report_timestamp | moreThanOneDayIcon}}"></i></td>
                     <td>{{node.deactived}}</td>
+                    <td> {{results[node.name].total}} events
+                        <div class="progress" >
+                            <div class="bar bar-success" style='width: {{results[node.name].success / results[node.name].total *100}}%;'></div>
+                            <div class="bar bar-warning" style='width: {{results[node.name].skipped / results[node.name].total *100}}%;'></div>
+                            <div class="bar bar-danger" style='width:{{results[node.name].failure / results[node.name].total *100}}%;'></div></td>
                     <td>
                         @*<div class="btn-group">*@
                             <a href="/facts/{{node.name}}" class="btn " alt="Facts"> <i class="icon-cog"></i> </a>
@@ -35,6 +41,8 @@
 
             </tbody>
         </table>
+
+        {{loadReports()}}
 
         @*<pre>{{data | json}}</pre>*@
     </div>

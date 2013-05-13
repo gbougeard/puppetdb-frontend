@@ -132,7 +132,8 @@ object Application extends Controller {
       import routes.javascript._
       Ok(
         Routes.javascriptRouter("jsRoutes")(
-          MyController.asyncRes
+          MyController.asyncRes,
+          MyController.asyncReports
         )
       ).as("text/javascript")
   }
