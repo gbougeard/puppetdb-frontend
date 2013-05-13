@@ -27,17 +27,21 @@
             </thead>
             <tbody>
 
-                <tr ng-repeat="node in data | with:filtering" class="{{node.report_timestamp | moreThanOneDayRow}}">
+                <tr ng-repeat="node in data | with:filtering:results" class="{{node.report_timestamp | moreThanOneDayRow:results[node.name]}}">
                     <td><a href="/reports/{{node.name}}">{{node.name}}</a></td>
                     <td>{{node.catalog_timestamp | moment}}</td>
                     <td>{{node.facts_timestamp | moment}}</td>
                     <td>{{node.report_timestamp | moment}} <i class="{{node.report_timestamp | moreThanOneDayIcon}}"></i></td>
                     <td>{{node.deactived}}</td>
-                    <td> {{results[node.name].total}} events
+                    <td> <a href="/events/{{results[node.name].hash}}">
+                        <span class="badge badge-success">{{results[node.name].success}}</span>
+                        <span class="badge badge-warning">{{results[node.name].skipped}}</span>
+                        <span class="badge badge-important">{{results[node.name].failure}}</span>
                         <div class="progress" >
                             <div class="bar bar-success" style='width: {{results[node.name].success / results[node.name].total *100}}%;'></div>
                             <div class="bar bar-warning" style='width: {{results[node.name].skipped / results[node.name].total *100}}%;'></div>
-                            <div class="bar bar-danger" style='width:{{results[node.name].failure / results[node.name].total *100}}%;'></div></td>
+                            <div class="bar bar-danger" style='width:{{results[node.name].failure / results[node.name].total *100}}%;'></div>
+                    </a>
                     <td>
                         @*<div class="btn-group">*@
                         <a href="/facts/{{node.name}}" class="btn " alt="Facts"> <i class="icon-cog"></i> </a>

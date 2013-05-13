@@ -38,7 +38,10 @@ angular.module('my_app.filters', [])
         };
     }]).
     filter('moreThanOneDayRow', [function (status) {
-        return function (date) {
+        return function (date, results) {
+//            console.log(date, results);
+            if (results && results.failure > 0) return "error";
+
 //            console.log("moreThanOneDayRow", date);
             if (date && angular.isDefined(date)) {
 
@@ -51,8 +54,9 @@ angular.module('my_app.filters', [])
                 }
             } else return "error";
         }
-    }]).filter('with', function() {
-        return function(items, isFiltering) {
+    }])
+    .filter('with', function() {
+        return function(items, isFiltering, results) {
 //            console.log(isFiltering);
             if (!isFiltering) return items;
 
@@ -64,6 +68,8 @@ angular.module('my_app.filters', [])
                 if (date && angular.isDefined(date)) {
                     if (moment(date).isBefore(today, 'day')) {
                         result[key] = value;
+                    } else  if (results && results[value.name] && results[value.name].failure > 0) {
+                        result[key] = value;
                     }
                 } else result[key] = value;
 //                if (!value.hasOwnProperty(field)) {
@@ -73,22 +79,8 @@ angular.module('my_app.filters', [])
 
             return result;
         };
-    }). filter('moreThanOneDay', [function (status) {
-        return function (date) {
-//            console.log("moreThanOneDayRow", date);
-            if (date && angular.isDefined(date)) {
-
-                var today = moment();
-
-                if (moment(date).isBefore(today, 'day')) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else return true;
-        }
-    }]).
-    filter('moreThanOneDayIcon', [function (status) {
+    })
+    .filter('moreThanOneDayIcon', [function () {
         return function (date) {
 //            console.log("moreThanOneDayIcon", date);
             if (date && angular.isDefined(date)) {

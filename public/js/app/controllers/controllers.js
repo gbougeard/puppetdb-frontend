@@ -7,6 +7,8 @@ angular.module('my_app.controllers', [])
 
         $scope.filtering = true;
 
+        $scope.inError = [];
+
         $scope.data = [];
         $scope.results = [];
         $scope.reports = [];
@@ -33,6 +35,7 @@ angular.module('my_app.controllers', [])
 //                    console.log("failure", data.failure.length);
 //                    console.log("skipped", data.skipped.length);
                     var result = {
+                        hash : hash,
                         success: data.success.length,
                         failure: data.failure.length,
                         skipped: data.skipped.length,
