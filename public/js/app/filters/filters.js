@@ -51,6 +51,42 @@ angular.module('my_app.filters', [])
                 }
             } else return "error";
         }
+    }]).filter('with', function() {
+        return function(items, isFiltering) {
+//            console.log(isFiltering);
+            if (!isFiltering) return items;
+
+            var result = {};
+            var today = moment();
+            angular.forEach(items, function(value, key) {
+                var date = moment(value.report_timestamp);
+//                console.log(value, date) ;
+                if (date && angular.isDefined(date)) {
+                    if (moment(date).isBefore(today, 'day')) {
+                        result[key] = value;
+                    }
+                } else result[key] = value;
+//                if (!value.hasOwnProperty(field)) {
+//                    result[key] = value;
+//                }
+            });
+
+            return result;
+        };
+    }). filter('moreThanOneDay', [function (status) {
+        return function (date) {
+//            console.log("moreThanOneDayRow", date);
+            if (date && angular.isDefined(date)) {
+
+                var today = moment();
+
+                if (moment(date).isBefore(today, 'day')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else return true;
+        }
     }]).
     filter('moreThanOneDayIcon', [function (status) {
         return function (date) {

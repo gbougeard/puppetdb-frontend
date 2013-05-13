@@ -5,6 +5,8 @@
 angular.module('my_app.controllers', [])
     .controller('MyController', function ($scope, $filter) {
 
+        $scope.filtering = true;
+
         $scope.data = [];
         $scope.results = [];
         $scope.reports = [];
